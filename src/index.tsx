@@ -3,7 +3,7 @@ import { hydrate, prerender as ssr } from "preact-iso";
 import "./style.css";
 import { RecoilRoot } from "recoil";
 import { SignupForm } from "./components/signup";
-import { Provider } from "./components/ui/provider";
+import { ChakraProvider } from "@chakra-ui/react";
 
 export function App() {
   return <SignupForm />;
@@ -12,9 +12,9 @@ export function App() {
 if (typeof window !== "undefined") {
   hydrate(
     <RecoilRoot>
-      <Provider>
+      <ChakraProvider value={null}>
         <App />
-      </Provider>
+      </ChakraProvider>
     </RecoilRoot>,
     document.getElementById("app")
   );
