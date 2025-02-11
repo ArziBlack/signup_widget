@@ -56,7 +56,7 @@ export const SignupForm = () => {
   return (
     <StepsRoot count={3}>
       <Center className="">
-        <main class="w-[400px] py-8">
+        <main className="w-[400px] py-8">
           <StepsList>
             <StepsItem index={0} />
             <StepsItem index={1} />
