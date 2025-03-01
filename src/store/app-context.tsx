@@ -39,7 +39,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const sendDataToParent = () => {
-    const data = { company_name: payload.company_name, company_email: payload.company_email };
+    const data = { company_name: payload.company_name, company_email: payload.company_email, message: company?.message };
     window.opener.postMessage(data, "http://localhost:3000/#/auth/signin"); 
     setTimeout(()=> {
       window.close(); 
