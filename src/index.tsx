@@ -4,6 +4,7 @@ import "./style.css";
 import { RecoilRoot } from "recoil";
 import { SignupForm } from "./components/signup";
 import { Provider } from "./components/ui/provider";
+import { AppProvider } from "./store/app-context";
 
 export function App() {
   return <SignupForm />;
@@ -11,11 +12,11 @@ export function App() {
 
 if (typeof window !== "undefined") {
   hydrate(
-    <RecoilRoot>
+    <AppProvider>
       <Provider>
         <App />
       </Provider>
-    </RecoilRoot>,
+    </AppProvider>,
     document.getElementById("app")
   );
 }

@@ -1,30 +1,33 @@
+import { Input } from "@chakra-ui/react";
 import SignupInput from "./signup-input";
 import {
   companyConfirmPassword,
   companyPassword,
   companyURL,
 } from "@/store/signup";
+import { Field } from "./ui/field";
 
 const StepTwo = () => {
   return (
     <div>
       <SignupInput
-        name="password"
+        name="company_password"
         label="Company Password"
         type="password"
-        atom={companyPassword}
+        placeholder="enter company password"
       />
-      <SignupInput
+      <Field label="confirm password">
+      <Input
         name="confirm_password"
-        label="Confirm Password"
         type="password"
-        atom={companyConfirmPassword}
-      />
+        placeholder="enter confirm password"
+        />
+        </Field>
       <SignupInput
-        name="url"
-        label="Company Website URL"
+        name="company_url"
+        label="Company URL"
         type="text"
-        atom={companyURL}
+        placeholder="enter company URL"
       />
     </div>
   );

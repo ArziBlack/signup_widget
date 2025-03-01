@@ -1,4 +1,3 @@
-import { useState } from "preact/hooks";
 import { Button, Center, Fieldset, Group, Stack } from "@chakra-ui/react";
 import {
   StepsCompletedContent,
@@ -12,45 +11,25 @@ import {
 import StepOne from "./step-one";
 import StepTwo from "./step-two";
 import StepThree from "./step-three";
-import { createCompany } from "@/store/api";
-import { useRecoilValue } from "recoil";
-import {
-  companyAddress,
-  companyEmail,
-  companyLogo,
-  companyName,
-  companyPassword,
-  companyURL,
-} from "@/store/signup";
+import { useAppContext } from "@/store/app-context";
 
 export const SignupForm = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const handleSubmit = async (e) => {
+  const { createCompany, payload:state, loading, error } = useAppContext()
+  const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    const name = useRecoilValue(companyName);
-    const email = useRecoilValue(companyEmail);
-    const address = useRecoilValue(companyAddress);
-    const password = useRecoilValue(companyPassword);
-    const logo = useRecoilValue(companyLogo);
-    const url = useRecoilValue(companyURL);
     try {
       const payload = {
-        company_name: name,
-        company_email: email,
-        company_address: address,
-        company_url: url,
-        company_logo: logo,
-        company_password: password,
+        company_name: state.company_name,
+        company_email: state.company_email,
+        company_address: state.company_address,
+        company_url: state.company_url,
+        company_logo: state.company_logo,
+        company_password: state.company_password,
       };
+      console.log(payload)
       await createCompany(payload);
     } catch (error) {
-      setError("Failed to fetch user data. Please try again.");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
   return (
@@ -81,7 +60,7 @@ export const SignupForm = () => {
                 <StepThree />
               </StepsContent>
               <StepsCompletedContent>
-                <Button variant="solid" size="sm" onClick={handleSubmit}>
+                <Button variant="solid" size="sm" onClick={handleSubmit} loading={loading} disabled={loading}>
                   Signup
                 </Button>
               </StepsCompletedContent>

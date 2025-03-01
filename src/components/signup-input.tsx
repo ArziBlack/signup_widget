@@ -1,20 +1,27 @@
 import { Input } from "@chakra-ui/react";
 import { Field } from "./ui/field";
-import { useRecoilState } from "recoil";
+import { useAppContext } from "@/store/app-context";
 
-const SignupInput = ({ label, atom, name, type }) => {
-  const [value, setValue] = useRecoilState(atom);
+interface SignupInputProps {
+  label: string;
+  name: keyof ReturnType<typeof useAppContext>["payload"];
+  type?: string;
+  placeholder?: string;
+}
+
+const SignupInput = ({ label, name, type = "text", placeholder }: SignupInputProps) => {
+  const { payload, updatePayload } = useAppContext();
+
   return (
-    <div>
-      <Field label={label}>
-        <Input
-          name={name}
-          type={type}
-          value={value as string}
-          onChange={(e: any) => setValue(e.target.value!)}
-        />
-      </Field>
-    </div>
+    <Field label={label}>
+      <Input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={payload[name] || ""}
+        onChange={(e) => updatePayload(name, (e.target as HTMLInputElement).value)}
+      />
+    </Field>
   );
 };
 

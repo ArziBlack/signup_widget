@@ -1,26 +1,25 @@
 import SignupInput from "./signup-input";
-import { companyAddress, companyEmail, companyName } from "@/store/signup";
 
 const StepOne = () => {
   return (
     <div>
       <SignupInput
-        name="name"
+        name="company_name"
         label="Company Name"
         type="text"
-        atom={companyName}
+        placeholder="enter company name"
       />
       <SignupInput
-        name="email"
-        label="Company Email Address"
-        type="email"
-        atom={companyEmail}
+         name="company_email"
+         label="Company Email"
+         type="email"
+         placeholder="enter company email"
       />
       <SignupInput
-        name="address"
-        label="Company Address"
-        type="text"
-        atom={companyAddress}
+         name="company_address"
+         label="Company Address"
+         type="text"
+         placeholder="enter company address"
       />
     </div>
   );
