@@ -38,6 +38,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setPayload((prev) => ({ ...prev, [field]: value }));
   };
 
+  const sendDataToParent = () => {
+    const data = { company_name: payload.company_name, company_email: payload.company_email };
+    window.opener.postMessage(data, "http://localhost:3000/#/auth/signin"); 
+    setTimeout(()=> {
+      window.close(); 
+    }, 3000)
+  };
+
   const createCompany = async (payload: any) => {
     setLoading(true);
     setError(null);
@@ -47,6 +55,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         payload
       );
       setCompany(response.data); 
+      sendDataToParent()
       return response.data;
     } catch (err: any) {
       console.error("Error creating company:", err);
